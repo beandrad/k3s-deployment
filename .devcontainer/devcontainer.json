@@ -1,0 +1,28 @@
+{
+	"name": "Ubuntu",
+	"build": {
+		"context": "..",
+		"dockerfile": "Dockerfile",
+	},
+	"runArgs": [
+		// Enable SSH for git
+		"-v",
+		"${env:HOME}${env:USERPROFILE}/.ssh:/root/.ssh-localhost:ro",
+		"-v",
+		"/var/run/docker.sock:/var/run/docker.sock",
+		// "--env-file", ".env"
+	],
+
+	"postCreateCommand":
+		"mkdir -p /root/.ssh && cp -r /root/.ssh-localhost/* /root/.ssh && chmod 700 /root/.ssh && chmod 600 /root/.ssh/*",
+	"settings": { 
+		"terminal.integrated.shell.linux": "/bin/zsh"
+	},
+
+	// Add the IDs of extensions you want installed when the container is created.
+	"extensions": [
+		"streetsidesoftware.code-spell-checker",
+		"eamodio.gitlens",
+		"hashicorp.terraform",
+	],
+}

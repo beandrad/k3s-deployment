@@ -1,0 +1,21 @@
+#cloud-config
+
+package_upgrade: true
+
+packages:
+  - curl
+  - jq
+
+write_files:
+  - encoding: b64
+    path: /home/adminuser/install-k3s.sh
+    permissions: "5555"
+    content: ${install_k3s}
+  - encoding: b64
+    path: /etc/rancher/k3s/config.yaml
+    permissions: "0644"
+    content: ${config_k3s}
+
+runcmd:
+  - sh /home/adminuser/install-k3s.sh
+  - kubectl completion bash | tee /etc/bash_completion.d/kubectl

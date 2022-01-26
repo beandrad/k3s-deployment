@@ -1,0 +1,5 @@
+.kube
+
+.terraform
+*.hcl
+*.tfstate*
