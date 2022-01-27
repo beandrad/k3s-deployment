@@ -3,7 +3,7 @@ output "k3s-vm-admin-username" {
 }
 
 output "k3s-vm-admin-password" {
-  value = azurerm_linux_virtual_machine.vm-k3s.admin_password
+  value     = azurerm_linux_virtual_machine.vm-k3s.admin_password
   sensitive = true
 }
 
@@ -16,5 +16,5 @@ output "rancher-vm-public-ip" {
 }
 
 output "kv_name" {
-    value = azurerm_key_vault.kv.name
+  value = azurerm_key_vault.kv.name
 }

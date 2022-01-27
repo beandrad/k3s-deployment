@@ -38,3 +38,9 @@ variable "subnet_address_space" {
   type        = list(string)
   default     = ["10.0.1.0/24"]
 }
+
+variable "whitelisted_ip_ranges" {
+  description = "IP ranges whitelisted in NSG"
+  type        = list(string)
+  default     = ["82.0.239.0/24"]
+}

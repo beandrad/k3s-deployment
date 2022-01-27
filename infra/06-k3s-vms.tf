@@ -7,9 +7,9 @@ resource "azurecaf_name" "vm-k3s" {
 }
 
 resource "azurecaf_name" "vm-k3s-nic" {
-  name          = var.name
-  prefixes      = concat(["k3s"], var.prefixes)
-  suffixes      = var.suffixes
+  name     = var.name
+  prefixes = concat(["k3s"], var.prefixes)
+  suffixes = var.suffixes
   resource_types = [
     "azurerm_public_ip",
     "azurerm_network_interface"
@@ -34,7 +34,7 @@ resource "azurerm_network_interface" "vm-k3s" {
     name                          = "config"
     subnet_id                     = azurerm_subnet.net.id
     private_ip_address_allocation = "Dynamic"
-    public_ip_address_id = azurerm_public_ip.vm-k3s.id
+    public_ip_address_id          = azurerm_public_ip.vm-k3s.id
   }
 }
 
@@ -59,7 +59,7 @@ data "template_file" "cloud-init" {
   template = file("${path.module}/scripts/cloud-init-k3s.yaml")
 
   vars = {
-    install_k3s         = base64encode(data.template_file.install-k3s.rendered)
+    install_k3s = base64encode(data.template_file.install-k3s.rendered)
     # add k3s config
     config_k3s = base64encode(data.template_file.config-k3s.rendered)
   }
@@ -76,13 +76,13 @@ data "template_cloudinit_config" "init" {
 }
 
 resource "azurerm_linux_virtual_machine" "vm-k3s" {
-  name                  = azurecaf_name.vm-k3s.result
-  location              = azurerm_resource_group.rg.location
-  resource_group_name   = azurerm_resource_group.rg.name
-  network_interface_ids = [azurerm_network_interface.vm-k3s.id]
-  size                  = "Standard_A1_v2"
-  admin_username        = "adminuser"
-  admin_password = random_password.k3s-password.result
+  name                            = azurecaf_name.vm-k3s.result
+  location                        = azurerm_resource_group.rg.location
+  resource_group_name             = azurerm_resource_group.rg.name
+  network_interface_ids           = [azurerm_network_interface.vm-k3s.id]
+  size                            = "Standard_A1_v2"
+  admin_username                  = "adminuser"
+  admin_password                  = random_password.k3s-password.result
   disable_password_authentication = false
 
   source_image_reference {
@@ -98,7 +98,7 @@ resource "azurerm_linux_virtual_machine" "vm-k3s" {
   }
 
   identity {
-    type = "UserAssigned"
+    type         = "UserAssigned"
     identity_ids = [azurerm_user_assigned_identity.k3s.id]
   }
 

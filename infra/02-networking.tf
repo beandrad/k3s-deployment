@@ -30,62 +30,62 @@ resource "azurerm_network_security_group" "net" {
   resource_group_name = azurerm_resource_group.rg.name
 
   security_rule {
-    name                       = "ssh-allow"
+    name                       = "websocket-allow"
     priority                   = 100
     direction                  = "Inbound"
     access                     = "Allow"
     protocol                   = "Tcp"
     source_port_range          = "*"
-    destination_port_range     = "22"
-    source_address_prefix      = "82.0.239.0/24"
+    destination_port_range     = "9094"
+    source_address_prefixes    = var.whitelisted_ip_ranges
     destination_address_prefix = "*"
   }
 
   security_rule {
-    name                       = "k3s-api-allow"
+    name                       = "ssh-allow"
     priority                   = 101
     direction                  = "Inbound"
     access                     = "Allow"
     protocol                   = "Tcp"
     source_port_range          = "*"
-    destination_port_range     = "6443"
-    source_address_prefix      = "82.0.239.0/24"
-    destination_address_prefix = "*"
-  }
-
-  security_rule {
-    name                       = "http-allow"
-    priority                   = 102
-    direction                  = "Inbound"
-    access                     = "Allow"
-    protocol                   = "Tcp"
-    source_port_range          = "*"
-    destination_port_range     = "80"
-    source_address_prefix      = "82.0.239.0/24"
+    destination_port_range     = "22"
+    source_address_prefixes    = var.whitelisted_ip_ranges
     destination_address_prefix = "*"
   }
 
   security_rule {
     name                       = "https-allow"
-    priority                   = 103
+    priority                   = 102
     direction                  = "Inbound"
     access                     = "Allow"
     protocol                   = "Tcp"
     source_port_range          = "*"
     destination_port_range     = "443"
-    source_address_prefix      = "82.0.239.0/24"
+    source_address_prefixes    = var.whitelisted_ip_ranges
     destination_address_prefix = "*"
   }
 
   security_rule {
-    name                       = "websocket-allow"
+    name                       = "k3s-api-allow"
+    priority                   = 103
+    direction                  = "Inbound"
+    access                     = "Allow"
+    protocol                   = "Tcp"
+    source_port_range          = "*"
+    destination_port_range     = "6443"
+    source_address_prefixes    = var.whitelisted_ip_ranges
+    destination_address_prefix = "*"
+  }
+
+  security_rule {
+    name                       = "http-allow"
     priority                   = 104
     direction                  = "Inbound"
     access                     = "Allow"
     protocol                   = "Tcp"
     source_port_range          = "*"
-    destination_port_range     = "9094"
-    source_address_prefix      = "82.0.239.0/24"
+    destination_port_range     = "80"
+    source_address_prefixes    = var.whitelisted_ip_ranges
     destination_address_prefix = "*"
   }
 }

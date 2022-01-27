@@ -26,16 +26,16 @@ resource "azurerm_key_vault_access_policy" "admin" {
   object_id    = data.azurerm_client_config.current.object_id
 
   key_permissions = [
-      "backup", "create", "delete", "get", "import", "list", "recover", "restore", "update"
-    ]
+    "backup", "create", "delete", "get", "import", "list", "recover", "restore", "update"
+  ]
 
-    secret_permissions = [
-      "backup", "delete", "get", "list", "recover", "restore", "set"
-    ]
+  secret_permissions = [
+    "backup", "delete", "get", "list", "recover", "restore", "set"
+  ]
 
-    certificate_permissions = [
-      "backup", "create", "delete", "deleteissuers", "get", "getissuers", "import", "list", "listissuers", "managecontacts", "manageissuers", "recover", "restore", "setissuers", "update"
-    ]
+  certificate_permissions = [
+    "backup", "create", "delete", "deleteissuers", "get", "getissuers", "import", "list", "listissuers", "managecontacts", "manageissuers", "recover", "restore", "setissuers", "update"
+  ]
 }
 
 resource "azurerm_key_vault_access_policy" "service_reader" {

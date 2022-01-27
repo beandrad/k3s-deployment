@@ -7,9 +7,9 @@ resource "azurecaf_name" "vm-rancher" {
 }
 
 resource "azurecaf_name" "vm-rancher-nic" {
-  name          = var.name
-  prefixes      = concat(["rancher"], var.prefixes)
-  suffixes      = var.suffixes
+  name     = var.name
+  prefixes = concat(["rancher"], var.prefixes)
+  suffixes = var.suffixes
   resource_types = [
     "azurerm_public_ip",
     "azurerm_network_interface"
@@ -34,7 +34,7 @@ resource "azurerm_network_interface" "vm-rancher" {
     name                          = "config"
     subnet_id                     = azurerm_subnet.net.id
     private_ip_address_allocation = "Dynamic"
-    public_ip_address_id = azurerm_public_ip.vm-rancher.id
+    public_ip_address_id          = azurerm_public_ip.vm-rancher.id
   }
 }
 
@@ -53,13 +53,13 @@ data "template_cloudinit_config" "init-rancher" {
 }
 
 resource "azurerm_linux_virtual_machine" "vm-rancher" {
-  name                  = azurecaf_name.vm-rancher.result
-  location              = azurerm_resource_group.rg.location
-  resource_group_name   = azurerm_resource_group.rg.name
-  network_interface_ids = [azurerm_network_interface.vm-rancher.id]
-  size                  = "Standard_DS3_v2"
-  admin_username        = "adminuser"
-  admin_password = random_password.k3s-password.result
+  name                            = azurecaf_name.vm-rancher.result
+  location                        = azurerm_resource_group.rg.location
+  resource_group_name             = azurerm_resource_group.rg.name
+  network_interface_ids           = [azurerm_network_interface.vm-rancher.id]
+  size                            = "Standard_DS3_v2"
+  admin_username                  = "adminuser"
+  admin_password                  = random_password.k3s-password.result
   disable_password_authentication = false
 
   source_image_reference {
@@ -75,7 +75,7 @@ resource "azurerm_linux_virtual_machine" "vm-rancher" {
   }
 
   identity {
-    type = "UserAssigned"
+    type         = "UserAssigned"
     identity_ids = [azurerm_user_assigned_identity.k3s.id]
   }
 
