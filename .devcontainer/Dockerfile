@@ -3,6 +3,7 @@ FROM ubuntu:${UBUNTU_VERSION}
 
 ARG TERRAFORM_VERSION=1.0.11
 ARG TFLINT_VERSION=0.29.1
+ARG HELM_VERSION=3.6.3
 
 ARG DEBIAN_FRONTEND=noninteractive
 
@@ -28,6 +29,13 @@ RUN mkdir -p /tmp/docker-downloads \
     && curl -sSL -o /tmp/docker-downloads/tflint.zip https://github.com/terraform-linters/tflint/releases/download/v${TFLINT_VERSION}/tflint_darwin_amd64.zip \
     && unzip /tmp/docker-downloads/tflint.zip \
     && mv tflint /usr/local/bin \
+    && rm -rf /tmp/docker-downloads
+
+# Install helm
+RUN mkdir -p /tmp/docker-downloads \
+    && curl -sSL -o /tmp/docker-downloads/helm.tar.gz https://get.helm.sh/helm-v${HELM_VERSION}-linux-amd64.tar.gz \
+    && tar -zxvf /tmp/docker-downloads/helm.tar.gz -C /tmp/docker-downloads/ \
+    && mv /tmp/docker-downloads/linux-amd64/helm /usr/local/bin/helm \
     && rm -rf /tmp/docker-downloads
 
 # Install az cli - if fails, docker system prune --force
