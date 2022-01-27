@@ -1,0 +1,20 @@
+#cloud-config
+
+package_upgrade: true
+
+packages:
+  - docker.io
+  - docker-compose
+
+# create the docker group
+groups:
+  - docker
+
+# assign a VM's default user to the docker group
+users:
+  - default
+  - name: adminuser
+    groups: docker
+
+runcmd:
+  - docker run --privileged -d --restart=unless-stopped -p 80:80 -p 443:443 rancher/rancher

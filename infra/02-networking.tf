@@ -52,6 +52,42 @@ resource "azurerm_network_security_group" "net" {
     source_address_prefix      = "82.0.239.0/24"
     destination_address_prefix = "*"
   }
+
+  security_rule {
+    name                       = "http-allow"
+    priority                   = 102
+    direction                  = "Inbound"
+    access                     = "Allow"
+    protocol                   = "Tcp"
+    source_port_range          = "*"
+    destination_port_range     = "80"
+    source_address_prefix      = "82.0.239.0/24"
+    destination_address_prefix = "*"
+  }
+
+  security_rule {
+    name                       = "https-allow"
+    priority                   = 103
+    direction                  = "Inbound"
+    access                     = "Allow"
+    protocol                   = "Tcp"
+    source_port_range          = "*"
+    destination_port_range     = "443"
+    source_address_prefix      = "82.0.239.0/24"
+    destination_address_prefix = "*"
+  }
+
+  security_rule {
+    name                       = "websocket-allow"
+    priority                   = 104
+    direction                  = "Inbound"
+    access                     = "Allow"
+    protocol                   = "Tcp"
+    source_port_range          = "*"
+    destination_port_range     = "9094"
+    source_address_prefix      = "82.0.239.0/24"
+    destination_address_prefix = "*"
+  }
 }
 
 resource "azurerm_subnet_network_security_group_association" "net" {
