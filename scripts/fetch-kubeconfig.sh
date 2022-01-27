@@ -13,12 +13,12 @@ fi
 DIRECTORY=$(dirname $0)
 
 KV_NAME=${1:-$(terraform -chdir=$DIRECTORY/../infra output -raw kv_name)}
-FILE=$(realpath $DIRECTORY/../.kube/k3s.kubeconfig)
+FILE=$(realpath $DIRECTORY/../.kube/k3s.yaml)
 
 echo "Fetching kubeconfig from KeyVault $KV_NAME"
 az keyvault secret show --name kubeconfig --vault-name $KV_NAME -o json | jq -r '.value' > $FILE
 
 if [ $? -eq 0 ]; then
   echo "Download successful. Setting KUBECONFIG to $FILE"
-  export KUBECONFIG=$FILE
+  export KUBECONFIG="KUBECONFIG:$FILE"
 fi
