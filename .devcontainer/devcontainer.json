@@ -24,5 +24,7 @@
 		"streetsidesoftware.code-spell-checker",
 		"eamodio.gitlens",
 		"hashicorp.terraform",
+		"vsciot-vscode.azure-iot-tools",
+		"ms-vscode.azure-account",
 	],
 }
