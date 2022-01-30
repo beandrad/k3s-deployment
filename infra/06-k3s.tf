@@ -80,7 +80,7 @@ resource "azurerm_linux_virtual_machine" "vm-k3s" {
   location                        = azurerm_resource_group.rg.location
   resource_group_name             = azurerm_resource_group.rg.name
   network_interface_ids           = [azurerm_network_interface.vm-k3s.id]
-  size                            = "Standard_A1_v2"
+  size                            = "Standard_DS3_v2"
   admin_username                  = "adminuser"
   admin_password                  = random_password.k3s-password.result
   disable_password_authentication = false
