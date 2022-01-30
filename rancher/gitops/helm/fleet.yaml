@@ -1,0 +1,17 @@
+namespace: fleet-mc-helm-example
+targetCustomizations:
+- name: amd64
+  helm:
+    values:
+      image: "gcr.io/google-samples/gb-frontend:v4"
+  clusterSelector:
+    matchLabels:
+      env: dev
+
+- name: arm64
+  helm:
+    values:
+      image: "gcr.io/google-samples/gb-frontend-arm64:v4"
+  clusterSelector:
+    matchLabels:
+      env: test
