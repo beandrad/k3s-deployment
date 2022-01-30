@@ -1,0 +1,49 @@
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  name: edgedeployments.microsoft.azure.devices.edge
+spec:
+  group: microsoft.azure.devices.edge
+  names:
+    kind: EdgeDeployment
+    listKind: EdgeDeploymentList
+    plural: edgedeployments
+    singular: edgedeployment
+  scope: Namespaced
+  versions:
+    - name: v1
+      served: true
+      storage: true
+      subresources:
+        # status enables the status subresource.
+        status: {}
+      schema:
+        openAPIV3Schema:
+          type: object
+          properties:
+            spec:
+              type: object
+              properties:
+                name:
+                  type: string
+                version:
+                  type: string
+                type:
+                  type: string
+                desiredStatus:
+                  type: string
+                restartPolicy:
+                  type: string
+                configurationInfo:
+                  type: string
+                env: 
+                  type: object
+                imagePullPolicy:
+                  type: string
+                startUpOrder:
+                  type: string
+                config:
+                  type: string
+                owner:
+                  type: string
+
