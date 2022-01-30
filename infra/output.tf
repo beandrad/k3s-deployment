@@ -11,6 +11,10 @@ output "k3s-vm-public-ip" {
   value = azurerm_linux_virtual_machine.vm-k3s.public_ip_address
 }
 
+output "k3s121-vm-public-ip" {
+  value = azurerm_linux_virtual_machine.vm-k3s121.public_ip_address
+}
+
 output "rancher-vm-public-ip" {
   value = azurerm_linux_virtual_machine.vm-rancher.public_ip_address
 }

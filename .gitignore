@@ -5,3 +5,7 @@
 *.tfstate*
 
 .env
+
+.ssh
+
+.DS_Store
