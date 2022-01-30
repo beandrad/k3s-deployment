@@ -1,0 +1,18 @@
+apiVersion: fleet.cattle.io/v1alpha1
+kind: GitRepo
+metadata:
+  name: sample
+  # This namespace is used to deploy to all downstream clusters
+  namespace: fleet-default
+spec:
+  # Everything from this repo will be ran in this cluster. You trust me right?
+  repo: "https://github.com/rancher/fleet-examples.git"
+  paths:
+  - simple
+  targets:
+  - clusterSelector:
+      matchExpressions:
+      - key: provider.cattle.io
+        operator: NotIn
+        values:
+        - harvester
