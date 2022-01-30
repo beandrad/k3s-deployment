@@ -17,7 +17,7 @@ spec:
   persistentVolumeReclaimPolicy: Retain
   storageClassName: local-storage
   local:
-    path: /mnt/iotedge
+    path: /mnt/iotedge  # TODO: machine dir needs to have read/write permissions
   nodeAffinity:
     required:
       nodeSelectorTerms:
@@ -25,7 +25,7 @@ spec:
         - key: kubernetes.io/hostname
           operator: In
           values:
-          - k3s121-vm-schaeffler
+          - k3s-vm-schaeffler # TODO: parametrize hostname
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
