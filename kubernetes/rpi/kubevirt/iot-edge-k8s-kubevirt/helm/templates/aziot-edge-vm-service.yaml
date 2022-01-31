@@ -1,0 +1,18 @@
+{{- if eq .Values.aziotEdgeVmEnableExternalSsh true }}
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+  {{ include "aziotedgevm.labels" . | indent 4}}
+  name: {{ include "aziotedgevm.name" . }}-vm-ssh-service
+spec:
+  externalTrafficPolicy: Cluster
+  selector:
+    kubevirt.io/domain: {{ include "aziotedgevm.name" . }}-vm
+  ports:
+    - name: ssh
+      protocol: TCP
+      port: 22
+      targetPort: 22
+  type: LoadBalancer
+{{- end }}

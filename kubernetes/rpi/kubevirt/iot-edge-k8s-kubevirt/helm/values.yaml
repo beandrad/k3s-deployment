@@ -1,0 +1,35 @@
+# VM's Data Volume size.
+aziotEdgeVmDiskSize: 4Gi
+
+# Flag to create K8s service/LB to allow ssh into the VM via public IP.
+aziotEdgeVmEnableExternalSsh: true
+
+# Override prefix of resource created, defaults to chart name, truncated by 40 chars.
+nameOverride: aziot-edge-kubevirt
+
+# SSH public key to access the VM.
+publicSshKey: ""
+
+# Config content for IoT Edge runtime.
+azIotEdgeConfig: ""
+
+# MAC address of VM instance
+macAddress: "fe:7e:48:a0:7d:22"
+
+# Root CA
+rootCA: ""
+
+# Root CA name
+rootCAName: "azure-iot.root.ca.cert.pem"
+
+# Device CA certificate
+deviceCACert: ""
+
+# Device CA certificate name
+deviceCACertName: "iot-edge-device.full-chain.cert.pem"
+
+# Device CA private key
+deviceCAKey: ""
+
+# Device CA private key name
+deviceCAKeyName: "iot-edge-device.key.pem"

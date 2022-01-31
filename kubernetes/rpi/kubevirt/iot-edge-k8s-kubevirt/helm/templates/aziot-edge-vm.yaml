@@ -1,0 +1,68 @@
+apiVersion: kubevirt.io/v1alpha3
+kind: VirtualMachine
+metadata:
+  generation: 1
+  labels:
+    kubevirt.io/os: linux
+  name: {{ include "aziotedgevm.name" . }}-linux
+spec:
+  running: true
+  template:
+    metadata:
+      labels:
+      {{ include "aziotedgevm.labels" . | indent 8}}
+        kubevirt.io/domain: {{ include "aziotedgevm.name" . }}-vm
+    spec:  
+      domain:
+        cpu:
+          cores: 2
+        devices:
+          disks:
+          - disk:
+              # This makes it exposed as /dev/vda disk attached to the VM.
+              bus: virtio
+            name: bootdisk
+          - disk:
+              bus: virtio     
+            name: aziotedgeconfigdisk
+            # set serial
+            serial: D23YZ9W6WA5DJ487
+          - disk:
+              bus: virtio
+            serial: CVLY623300HK240D
+            name: cloudinitdisk
+          # - cdrom:
+          #     bus: sata
+          #   name: cloudinitdisk
+          interfaces:
+          - masquerade: {}
+            macAddress: {{ .Values.macAddress }}
+            name: default 
+        machine:
+          type: virt
+        resources:
+          requests:
+            memory: 1Gi
+      networks:
+      - name: default
+        pod: {}
+      accessCredentials:
+       - sshPublicKey:
+           source:
+             secret:
+               secretName: rpi01-rsa-pub
+           propagationMethod:
+             configDrive: {}
+      volumes:
+      - dataVolume:
+         name: {{ include "aziotedgevm.name" . }}-linux-dv
+        name: bootdisk
+      - name: aziotedgeconfigdisk
+        secret:
+          secretName: {{ include "aziotedgevm.name" . }}-vm-aziotedgeconfig
+      - name: cloudinitdisk
+      # https://kubevirt.io/user-guide/virtual_machines/startup_scripts/#cloud-init-userdata-as-k8s-secret
+      # https://kubevirt.io/user-guide/virtual_machines/disks_and_volumes/#cloudinitnocloud
+        cloudInitConfigDrive: #cloudInitNoCloud:
+          secretRef:
+            name: {{ .Values.nameOverride }}-vm-cloudconfig # TODO: we should be using {{ include "aziotedgevm.name" . }} here instead but that fails, needs further investigation.

@@ -1,0 +1,12 @@
+You have installed release {{ .Chart.Version}} of {{ .Chart.Name }}.
+
+To learn more about the release, try:
+
+  $ helm status {{ .Release.Name }}
+  $ helm get all {{ .Release.Name }}
+
+To check the status of a newly created IoT Edge VM in K8s, try:
+kubectl get vmi {{ include "aziotedgevm.name" . }}-linux
+
+To connect to the newly created IoT Edge VM in K8s, try (once VM Instance is running):
+ssh ubuntu@$(kubectl get service {{ include "aziotedgevm.name" . }}-vm-ssh-service --output jsonpath='{.status.loadBalancer.ingress[0].ip}')
