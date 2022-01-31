@@ -1,0 +1,20 @@
+kind: GitRepo
+apiVersion: fleet.cattle.io/v1alpha1
+metadata:
+  name: helm
+  namespace: fleet-default
+spec:
+  repo: "https://github.com/beandrad/k3s-deployment.git"
+  branch: main
+  paths:
+  - rancher/gitops/helm
+  targets:
+  - name: amd64
+    clusterSelector:
+      matchLabels:
+        kubernetes.io/arch: amd64
+
+  # - name: arm64
+  #   clusterSelector:
+  #     matchLabels:
+  #       kubernetes.io/arch: arm64
