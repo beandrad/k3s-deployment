@@ -6,7 +6,7 @@ targetCustomizations:
       image: "gcr.io/google-samples/gb-frontend:v4"
   clusterSelector:
     matchLabels:
-      env: dev
+      kubernetes.io/arch: amd64
 
 - name: arm64
   helm:
@@ -14,4 +14,4 @@ targetCustomizations:
       image: "gcr.io/google-samples/gb-frontend-arm64:v4"
   clusterSelector:
     matchLabels:
-      env: test
+      kubernetes.io/arch: amr64
