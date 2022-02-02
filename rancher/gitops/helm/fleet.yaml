@@ -14,4 +14,4 @@ targetCustomizations:
       image: "gcr.io/google-samples/gb-frontend-arm64:v4"
   clusterSelector:
     matchLabels:
-      kubernetes.io/arch: amr64
+      kubernetes.io/arch: arm64
