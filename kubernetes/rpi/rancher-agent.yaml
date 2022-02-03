@@ -63,12 +63,12 @@ roleRef:
 apiVersion: v1
 kind: Secret
 metadata:
-  name: cattle-credentials-47f1d72
+  name: cattle-credentials-eb55e0e
   namespace: cattle-system
 type: Opaque
 data:
   url: "aHR0cHM6Ly81MS4xMS4xODcuNzQ="
-  token: "dGtzYnFsczlmOXdkd2JxYnByNmRwbDJyN3c3ZHpucHd6N21ncG1kYjZwdzZiNHFtNTljc2d6"
+  token: "ZG1yZ2JyanFzazZoN3M5OTY3bTR2dHZjeng4eHNza3c4OTlremNkZmh6NTdsNnA4NjVuaGp2"
   namespace: ""
 
 ---
@@ -192,7 +192,7 @@ spec:
             value: 55888734-8dec-4a2d-a5fa-4dbee66598ea
           - name: CATTLE_INGRESS_IP_DOMAIN
             value: sslip.io
-          image: rancher/rancher-agent:v2.6.3-patch1-linux-arm64
+          image: rancher/rancher-agent:v2.6.3
           volumeMounts:
           - name: cattle-credentials
             mountPath: /cattle-credentials
@@ -200,7 +200,7 @@ spec:
       volumes:
       - name: cattle-credentials
         secret:
-          secretName: cattle-credentials-47f1d72
+          secretName: cattle-credentials-eb55e0e
           defaultMode: 320
   strategy:
     type: RollingUpdate

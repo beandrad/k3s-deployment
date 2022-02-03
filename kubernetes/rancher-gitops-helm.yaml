@@ -14,7 +14,7 @@ spec:
       matchLabels:
         kubernetes.io/arch: amd64
 
-  # - name: arm64
-  #   clusterSelector:
-  #     matchLabels:
-  #       kubernetes.io/arch: arm64
+  - name: arm64
+    clusterSelector:
+      matchLabels:
+        kubernetes.io/arch: arm64
